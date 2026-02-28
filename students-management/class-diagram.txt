@@ -1,0 +1,45 @@
++------------------------------------------------+
+|                   Student                      |
++------------------------------------------------+
+| - id: String                                   |
+| - name: String                                 |
++------------------------------------------------+
+| + Student(id: String, name: String)           |
+| + getId(): String                              |
+| + getName(): String                            |
+| + getInfo(): String                            |
++------------------------------------------------+
+
+                ▲
+                |
+                | creates
++------------------------------------------------+
+|               StudentFactory                   |
++------------------------------------------------+
+| + createStudent(id: String, name: String)     |
++------------------------------------------------+
+
++------------------------------------------------+
+|               StudentManager                   |
+|               <<Singleton>>                    |
++------------------------------------------------+
+| - instance: StudentManager                    |
+| - studentList: List<Student>                  |
++------------------------------------------------+
+| - StudentManager()                            |
+| + getInstance(): StudentManager               |
+| + addStudent(student: Student): void          |
+| + displayStudents(): void                     |
++------------------------------------------------+
+
+Relationships:
+StudentFactory -------> Student
+StudentManager -------> Student
+App -------> StudentFactory
+App -------> StudentManager
+
+Quan hệ trong UML
+StudentFactory creates Student
+StudentManager manages Student
+StudentManager có stereotype: <<Singleton>>
+Constructor của StudentManager là private
