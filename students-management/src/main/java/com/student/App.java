@@ -11,75 +11,87 @@ public class App {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
+
         StudentManager manager = StudentManager.getInstance();
 
         while (true) {
 
-            System.out.println("\n===== STUDENT MANAGEMENT =====");
+            System.out.println("\n===== STUDENT SYSTEM =====");
             System.out.println("1. Add Student");
-            System.out.println("2. Update Student");
-            System.out.println("3. Delete Student");
-            System.out.println("4. Search Student");
-            System.out.println("5. Display Students");
+            System.out.println("2. Display Students");
+            System.out.println("3. Search Student");
+            System.out.println("4. Update Student");
+            System.out.println("5. Delete Student");
             System.out.println("0. Exit");
 
-            System.out.print("Choose option: ");
+            System.out.print("Choose: ");
             int choice = sc.nextInt();
             sc.nextLine();
 
             switch (choice) {
 
                 case 1:
-                    System.out.print("Enter Student ID: ");
+
+                    System.out.println("1. Regular Student");
+                    System.out.println("2. Exchange Student");
+
+                    System.out.print("Select type: ");
+                    int type = sc.nextInt();
+                    sc.nextLine();
+
+                    System.out.print("Enter ID: ");
                     String id = sc.nextLine();
 
-                    System.out.print("Enter Student Name: ");
+                    System.out.print("Enter Name: ");
                     String name = sc.nextLine();
 
-                    Student student = StudentFactory.createStudent(id, name);
-                    manager.addStudent(student);
+                    Student s = StudentFactory.createStudent(type, id, name);
+
+                    manager.addStudent(s);
+
                     break;
 
                 case 2:
-                    System.out.print("Enter Student ID to update: ");
+                    manager.displayStudents();
+                    break;
+
+                case 3:
+
+                    System.out.print("Enter ID: ");
+                    String searchId = sc.nextLine();
+
+                    Student found = manager.searchStudent(searchId);
+
+                    if (found != null)
+                        System.out.println(found.getInfo());
+                    else
+                        System.out.println("Not found");
+
+                    break;
+
+                case 4:
+
+                    System.out.print("Enter ID: ");
                     String updateId = sc.nextLine();
 
                     System.out.print("Enter new name: ");
                     String newName = sc.nextLine();
 
                     manager.updateStudent(updateId, newName);
-                    break;
-
-                case 3:
-                    System.out.print("Enter Student ID to delete: ");
-                    String deleteId = sc.nextLine();
-
-                    manager.deleteStudent(deleteId);
-                    break;
-
-                case 4:
-                    System.out.print("Enter Student ID to search: ");
-                    String searchId = sc.nextLine();
-
-                    Student s = manager.searchStudent(searchId);
-
-                    if (s != null)
-                        System.out.println(s.getInfo());
-                    else
-                        System.out.println("Student not found.");
 
                     break;
 
                 case 5:
-                    manager.displayStudents();
+
+                    System.out.print("Enter ID: ");
+                    String deleteId = sc.nextLine();
+
+                    manager.deleteStudent(deleteId);
+
                     break;
 
                 case 0:
-                    System.out.println("Program exited.");
                     return;
-
-                default:
-                    System.out.println("Invalid option.");
             }
         }
     }

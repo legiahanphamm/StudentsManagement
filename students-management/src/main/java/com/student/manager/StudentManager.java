@@ -1,8 +1,9 @@
 package com.student.manager;
 
-import com.student.model.Student;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.student.model.Student;
 
 public class StudentManager {
 
@@ -14,20 +15,22 @@ public class StudentManager {
     }
 
     public static StudentManager getInstance() {
+
         if (instance == null) {
             instance = new StudentManager();
         }
+
         return instance;
     }
 
-    public void addStudent(Student student) {
-        studentList.add(student);
-        System.out.println("Student added successfully!");
+    public void addStudent(Student s) {
+        studentList.add(s);
     }
 
     public void displayStudents() {
+
         if (studentList.isEmpty()) {
-            System.out.println("No students found.");
+            System.out.println("No students.");
             return;
         }
 
@@ -37,31 +40,34 @@ public class StudentManager {
     }
 
     public Student searchStudent(String id) {
+
         for (Student s : studentList) {
-            if (s.getId().equalsIgnoreCase(id)) {
+            if (s.getId().equalsIgnoreCase(id))
                 return s;
-            }
         }
+
         return null;
     }
 
     public void deleteStudent(String id) {
+
         Student s = searchStudent(id);
 
         if (s != null) {
             studentList.remove(s);
-            System.out.println("Student deleted successfully!");
+            System.out.println("Deleted!");
         } else {
             System.out.println("Student not found.");
         }
     }
 
     public void updateStudent(String id, String newName) {
+
         Student s = searchStudent(id);
 
         if (s != null) {
             s.setName(newName);
-            System.out.println("Student updated successfully!");
+            System.out.println("Updated!");
         } else {
             System.out.println("Student not found.");
         }

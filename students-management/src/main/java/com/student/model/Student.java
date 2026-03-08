@@ -1,8 +1,9 @@
 package com.student.model;
 
-public class Student {
-    private String id;
-    private String name;
+public abstract class Student {
+
+    protected String id;
+    protected String name;
 
     public Student(String id, String name) {
         this.id = id;
@@ -18,10 +19,8 @@ public class Student {
     }
 
     public void setName(String name) {
-    this.name = name;
+        this.name = name;
     }
 
-    public String getInfo() {
-        return "ID: " + id + " - Name: " + name;
-    }
+    public abstract String getInfo();
 }
