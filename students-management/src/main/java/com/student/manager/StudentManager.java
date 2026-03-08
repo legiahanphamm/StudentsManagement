@@ -6,17 +6,13 @@ import java.util.List;
 
 public class StudentManager {
 
-    // Singleton instance
     private static StudentManager instance;
-
     private List<Student> studentList;
 
-    // Private constructor
     private StudentManager() {
         studentList = new ArrayList<>();
     }
 
-    // Get instance
     public static StudentManager getInstance() {
         if (instance == null) {
             instance = new StudentManager();
@@ -30,9 +26,44 @@ public class StudentManager {
     }
 
     public void displayStudents() {
-        System.out.println("List of students:");
+        if (studentList.isEmpty()) {
+            System.out.println("No students found.");
+            return;
+        }
+
         for (Student s : studentList) {
             System.out.println(s.getInfo());
+        }
+    }
+
+    public Student searchStudent(String id) {
+        for (Student s : studentList) {
+            if (s.getId().equalsIgnoreCase(id)) {
+                return s;
+            }
+        }
+        return null;
+    }
+
+    public void deleteStudent(String id) {
+        Student s = searchStudent(id);
+
+        if (s != null) {
+            studentList.remove(s);
+            System.out.println("Student deleted successfully!");
+        } else {
+            System.out.println("Student not found.");
+        }
+    }
+
+    public void updateStudent(String id, String newName) {
+        Student s = searchStudent(id);
+
+        if (s != null) {
+            s.setName(newName);
+            System.out.println("Student updated successfully!");
+        } else {
+            System.out.println("Student not found.");
         }
     }
 }
