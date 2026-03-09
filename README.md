@@ -49,21 +49,24 @@ student-management
 
 ## 🎯 4. Design Patterns Implementation
 
-### 🔹 4.1 Singleton Pattern
+## 🔹 4.1 Singleton Pattern
 
 **Class:** `StudentManager`
 
-The Singleton pattern ensures that only one instance of `StudentManager` exists throughout the application.
+The **Singleton Pattern** ensures that only **one instance** of the `StudentManager` class exists throughout the application.  
+This instance is responsible for managing the list of students in the system.
 
-Key characteristics:
-- Private constructor
-- Static instance variable
-- Public static `getInstance()` method
+### Key Characteristics
+
+- **Private constructor** to prevent direct object creation.
+- **Static instance variable** to store the single instance.
+- **Public static `getInstance()` method** to provide global access to that instance.
 
 ### Example
 
 ```java
 public class StudentManager {
+
     private static StudentManager instance;
 
     private StudentManager() {}
@@ -73,5 +76,48 @@ public class StudentManager {
             instance = new StudentManager();
         }
         return instance;
+    }
+}
+```
+
+## 🔹 4.2 Factory Pattern
+
+**Class:** `StudentFactory`
+
+The **Factory Pattern** is used to create `Student` objects without directly calling the constructor in the main program.  
+Instead, a dedicated factory class (`StudentFactory`) handles the creation logic.
+
+This approach centralizes object creation and makes the system easier to maintain and extend.
+
+---
+
+### How It Works
+
+When the user selects **Add Student** from the console menu, the program calls the factory method to create the appropriate student object.
+
+Example flow:
+
+User → Menu → `StudentFactory.createStudent()` → `Student` object → `StudentManager`
+
+---
+
+### Example
+
+```java
+public class StudentFactory {
+
+    public static Student createStudent(int type, String id, String name) {
+
+        switch (type) {
+
+            case 1:
+                return new RegularStudent(id, name);
+
+            case 2:
+                return new ExchangeStudent(id, name);
+
+            default:
+                return null;
+        }
     }
 }
